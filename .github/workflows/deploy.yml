@@ -13,6 +13,15 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Install
+        run: npm install
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Test
+        run: npm test
+
       - name: SSH Deploy
         uses: appleboy/ssh-action@v1.0.3
         with:
