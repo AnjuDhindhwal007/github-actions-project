@@ -16,11 +16,11 @@ jobs:
       - name: Install
         run: npm install
 
-      - name: Lint
-        run: npm run lint
-
-      - name: Test
+      - name: Run unit test
         run: npm test
+
+      - name: Run lint
+        run: npm run lint
 
       - name: SSH Deploy
         uses: appleboy/ssh-action@v1.0.3
