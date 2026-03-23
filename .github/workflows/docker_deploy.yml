@@ -24,7 +24,12 @@ jobs:
 
       - name: Build image
         run: docker build -t anju557/github-actions-project .
-
+        
+      - name: Trivy scan
+        uses: aquasecurity/trivy-action@master
+        with:
+         image-ref: anju557/github-actions-project
+         
       - name: Push image
         run: docker push anju557/github-actions-project
 
