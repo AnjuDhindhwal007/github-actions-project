@@ -43,5 +43,5 @@ jobs:
           script: |
             docker pull anju557/github-actions-project
             docker stop github-actions-project || true
-            docker rm github-actions-project || true
-            docker run -d -p 8001:8001 --name github-actions-project anju557/github-actions-project
+            sudo fuser -k 8080/tcp || true
+            docker run -d -p 8080:8080 --name github-actions-project anju557/github-actions-project
