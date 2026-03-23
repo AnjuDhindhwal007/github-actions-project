@@ -1,35 +1,35 @@
-name: Deploy to EC2
+# name: Deploy to EC2
 
-on:
-  push:
-    branches:
-      - main
+# on:
+#   push:
+#     branches:
+#       - main
 
-jobs:
-  deploy:
-    runs-on: ubuntu-latest
+# jobs:
+#   deploy:
+#     runs-on: ubuntu-latest
 
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+#     steps:
+#       - name: Checkout code
+#         uses: actions/checkout@v4
 
-      - name: Install
-        run: npm install
+#       - name: Install
+#         run: npm install
 
-      - name: Run unit test
-        run: npm test
+#       - name: Run unit test
+#         run: npm test
 
-      - name: Run lint
-        run: npm run lint
+#       - name: Run lint
+#         run: npm run lint
 
-      - name: SSH Deploy
-        uses: appleboy/ssh-action@v1.0.3
-        with:
-          host: ${{ secrets.EC2_HOST }}
-          username: ubuntu
-          key: ${{ secrets.EC2_KEY }}
-          script: |
-            cd /home/ubuntu/github-actions-project
-            git pull origin main
-            sudo docker compose down
-            sudo docker compose up -d --build
+#       - name: SSH Deploy
+#         uses: appleboy/ssh-action@v1.0.3
+#         with:
+#           host: ${{ secrets.EC2_HOST }}
+#           username: ubuntu
+#           key: ${{ secrets.EC2_KEY }}
+#           script: |
+#             cd /home/ubuntu/github-actions-project
+#             git pull origin main
+#             sudo docker compose down
+#             sudo docker compose up -d --build
