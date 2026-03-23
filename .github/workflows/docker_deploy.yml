@@ -47,7 +47,25 @@ jobs:
           key: ${{ secrets.EC2_KEY }}
           script: |
             docker pull anju557/github-actions-project
-            docker stop github-actions-project || true
-            docker rm github-actions-project || true
-            sudo fuser -k 8080/tcp || true
-            docker run -d -p 8080:8080 --name github-actions-project anju557/github-actions-project
+            if [ "${{ github.ref_name }}" = "main" ]; then
+              echo "Deploying PROD"
+
+              docker stop prod || true
+              docker rm prod || true
+              sudo fuser -k 8080/tcp || true
+
+              docker run -d -p 8080:8080 \
+                --name prod \
+                anju557/github-actions-project
+
+            else
+              echo "Deploying DEV"
+
+              docker stop dev || true
+              docker rm dev || true
+              sudo fuser -k 8081/tcp || true
+
+              docker run -d -p 8081:8080 \
+                --name dev \
+                anju557/github-actions-project
+            fi
