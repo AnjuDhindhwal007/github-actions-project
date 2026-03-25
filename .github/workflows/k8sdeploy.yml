@@ -62,7 +62,10 @@ jobs:
           password: ${{ secrets.DOCKER_PASS }}
 
       - name: Build image
-        run: docker build -t anju557/github-actions-project .
+        run: |
+          pwd
+          ls -la
+          docker build -f Dockerfile -t anju557/github-actions-project .
 
 
 
@@ -93,14 +96,17 @@ jobs:
 
     steps:
 
+      - uses: actions/checkout@v4
+
       - name: Login DockerHub
         uses: docker/login-action@v3
         with:
           username: ${{ secrets.DOCKER_USER }}
           password: ${{ secrets.DOCKER_PASS }}
-          
+
       - name: Build image
-        run: docker build -t anju557/github-actions-project .
+        run: docker build -f Dockerfile -t anju557/github-actions-project .
+
       - name: Push image
         run: docker push anju557/github-actions-project
 
@@ -125,15 +131,9 @@ jobs:
           key: ${{ secrets.EC2_KEY }}
 
           script: |
-
             cd ~/github-actions-project/k8s
-
             docker pull anju557/github-actions-project
-
             kubectl apply -f deployment.yaml
-
             kubectl apply -f service.yaml
-
             kubectl rollout restart deployment github-actions-project
-
             kubectl get pods
