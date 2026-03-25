@@ -3,9 +3,8 @@ name: CI-CD K8S Pipeline
 on:
   push:
     branches:
-      - main
       - dev
-
+      - main
 
 jobs:
 
