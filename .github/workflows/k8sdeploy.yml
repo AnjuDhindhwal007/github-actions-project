@@ -98,7 +98,9 @@ jobs:
         with:
           username: ${{ secrets.DOCKER_USER }}
           password: ${{ secrets.DOCKER_PASS }}
-
+          
+      - name: Build image
+        run: docker build -t anju557/github-actions-project .
       - name: Push image
         run: docker push anju557/github-actions-project
 
